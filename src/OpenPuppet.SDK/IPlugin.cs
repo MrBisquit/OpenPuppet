@@ -512,7 +512,7 @@ namespace OpenPuppet.SDK
     {
         public class PluginItem
         {
-            public string Path { get; set; }
+            public required string Path { get; set; }
             public bool Enabled { get; set; }
         }
 

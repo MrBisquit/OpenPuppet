@@ -20,10 +20,12 @@ namespace OpenPuppet.SVG
             {"ellipse",EllipseImporter},
         };
 
-        public static UnifiedVector ImportSVG(string path)
+        public static UnifiedVector ImportSVG(string path, CancellationToken? ct = null)
         {
             if (!File.Exists(path))
                 throw new Exception($"SVG file {path} does not exist");
+
+            ct?.ThrowIfCancellationRequested();
 
             var doc = XDocument.Parse(File.ReadAllText(path));
 
@@ -51,6 +53,8 @@ namespace OpenPuppet.SVG
                 viewbox.Height = float.Parse(doc.Root.AttributeOrDefault("height", "200").Value);
             }
 
+            ct?.ThrowIfCancellationRequested();
+
             List<ColoredVectorComponent> Components = new();
 
             foreach (var item in doc.Descendants())
@@ -62,9 +66,16 @@ namespace OpenPuppet.SVG
                     var imported = val(item, viewbox);
                     Components.AddRange(imported);
                 }
+
+                ct?.ThrowIfCancellationRequested();
             }
 
             return new(Components);
+        }
+
+        public static Task<UnifiedVector> ImportSVGAsync(string path, CancellationToken ct)
+        {
+            return Task.Run(() => { return ImportSVG(path, ct); }, ct);
         }
 
         static ColoredVectorComponent[] RectImporter(XElement element, RectangleF Viewbox)
