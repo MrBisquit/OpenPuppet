@@ -11,5 +11,14 @@ namespace OpenPuppet.vector
     {
         public Vector2 Viewbox { get; set; }
         public Vector2 Scale { get; set; }
+
+        public VectorScreen()
+        { }
+
+        public VectorScreen(Vector2 viewbox, Vector2 scale)
+        {
+            Viewbox = viewbox;
+            Scale = scale;
+        }
     }
 }

@@ -38,7 +38,7 @@ namespace OpenPuppet.SDK.TimelineTracks
         Action<T> SetValue;
 
         [JsonConstructor]
-        public PropertyTimeline(Guid holder, SceneMetadata scene, string name, string property)
+        public PropertyTimeline(Guid holder, SceneMetadata scene, string name, string property) // TODO: Fix CS8618
         {
             Name = name;
             HolderID = holder;

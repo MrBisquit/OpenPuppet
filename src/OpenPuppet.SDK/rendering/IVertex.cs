@@ -16,18 +16,11 @@ namespace OpenPuppet.rendering
         public static abstract List<TSelf> FromGeneralData(List<GeneralVertexData> vecs);
     }
 
-    public struct GeneralVertexData
+    public struct GeneralVertexData(Vector3 position, Vector3 normal, Vector2 uv, Vector4 color)
     {
-        public Vector3 Position;
-        public Vector3 Normal;
-        public Vector2 UV;
-        public Vector4 Color;
-        public GeneralVertexData(Vector3 position, Vector3 normal, Vector2 uv, Vector4 color)
-        {
-            Position = position;
-            Normal = normal;
-            UV = uv;
-            Color = color;
-        }
+        public Vector3 Position = position;
+        public Vector3 Normal = normal;
+        public Vector2 UV = uv;
+        public Vector4 Color = color;
     }
 }

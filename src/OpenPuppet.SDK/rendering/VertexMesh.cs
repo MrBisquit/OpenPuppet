@@ -8,13 +8,13 @@ namespace OpenPuppet.rendering
 {
     public class VertexMesh<T>(List<T> verticies, List<int> indicies) where T : IVertex<T>
     {
-        public T[] Verticies { get; } = verticies.ToArray();
-        public int[] Indices { get; } = indicies.ToArray();
+        public T[] Verticies { get; } = [.. verticies];
+        public int[] Indices { get; } = [.. indicies];
 
         public static VertexMesh<T> Unify(IEnumerable<VertexMesh<T>> meshes)
         {
-            List<T> verticies = new();
-            List<int> indicies = new();
+            List<T> verticies = [];
+            List<int> indicies = [];
             int offset = 0;
             foreach (var mesh in meshes)
             {

@@ -11,6 +11,7 @@ namespace OpenPuppet.rendering
 {
     public class RenderSurface
     {
+        // TODO: Fix whatever CS8618 is complaining about
         static GL _gl;
 
         public static List<RenderSurface> Surfaces { get; } = new();

@@ -157,12 +157,12 @@ namespace OpenPuppet.vector
 
             return new(
                 T.FromGeneralData(
-                    prototype.Positions.Select(
+                    [.. prototype.Positions.Select(
                         x => new GeneralVertexData(
                             x, Vector3.Zero, Vector2.Zero,
                             colorSampler.SampleColor(x)
                         )
-                    ).ToList()
+                    )]
                 ), idx
             );
         }

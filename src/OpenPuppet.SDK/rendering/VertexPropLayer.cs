@@ -14,7 +14,6 @@ namespace OpenPuppet.rendering
         public bool Normalize { get; set; } = normalized;
         public int SizeInBytes { get; private set; } = GatherSize(type) * count;
 
-
         static int GatherSize(VertexAttribPointerType type)
         {
             return type switch
