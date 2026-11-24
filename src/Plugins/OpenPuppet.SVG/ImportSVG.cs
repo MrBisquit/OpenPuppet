@@ -53,6 +53,7 @@ namespace OpenPuppet.SVG
             if (openDisabled) ImGui.BeginDisabled();
             if (ImGui.Button("Open") && !openDisabled)
             {
+                // TODO: Convert this to an async operation
                 var vector = SVGImporter.ImportSVG(path);
 
                 var scene = ProjectManager.ActiveProject!.Scenes[ProjectManager.ActiveProject.ActiveScene];
