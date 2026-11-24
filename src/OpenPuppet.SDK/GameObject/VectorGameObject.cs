@@ -31,14 +31,14 @@ namespace OpenPuppet.SDK.GameObject
 
         public VectorGameObject(string vectorAssetPath)
         {
-            this.VectorAssetPath = vectorAssetPath;
+            VectorAssetPath = vectorAssetPath;
 
             if (ProjectManager.ActiveProject != null)
                 vectorAssetPath = Path.Join(ProjectManager.ActiveProject.Directory, vectorAssetPath);
 
             VectorASTCache = IVectorASTComponent.LoadFromDisk(vectorAssetPath);
 
-            MeshCache = VectorMesher.GenerateUnifiedMesh<vtx>(VectorASTCache);
+            MeshCache = VectorMesher.GenerateUnifiedMesh<vtxT>(VectorASTCache);
         }
 
         public unsafe void Draw(GL gl)
