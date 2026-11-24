@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace OpenPuppet.SDK.GameObject
 {
-    public class VectorGameObject<vtx> : ISceneGameObject where vtx : IVertex<vtx>
+    public class VectorGameObject<vtxT> : ISceneGameObject where vtxT : IVertex<vtxT>
     {
         public Guid ID => Guid.NewGuid();
 
@@ -26,8 +26,8 @@ namespace OpenPuppet.SDK.GameObject
 
         public string VectorAssetPath { get; set; } = string.Empty;
         [JsonIgnore] public UnifiedVector VectorASTCache { get; set; }
-        [JsonIgnore] VertexMesh<vtx> MeshCache { get; set; }
-        [JsonIgnore] Model<vtx> Model { get; set; } = null!;
+        [JsonIgnore] VertexMesh<vtxT> MeshCache { get; set; }
+        [JsonIgnore] Model<vtxT> Model { get; set; } = null!;
 
         public VectorGameObject(string vectorAssetPath)
         {
