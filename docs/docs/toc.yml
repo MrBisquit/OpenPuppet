@@ -2,6 +2,8 @@
   href: introduction.md
 - name: Getting Started
   href: getting-started.md
+- name: Getting Started (Developer)
+  href: developer-guide.md
 - name: Systems
   items:
     - name: Plugins
@@ -10,3 +12,11 @@
           href: systems/plugins/overview.md
         - name: Make your own
           href: systems/plugins/create.md
+    - name: Task system
+      items:
+        - name: Overview
+          href: systems/tasks/overview.md
+        - name: Priority (foreground) tasks
+          href: systems/tasks/priority.md
+        - name: Background tasks
+          href: systems/tasks/background.md

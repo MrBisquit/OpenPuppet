@@ -43,7 +43,7 @@ namespace OpenPuppet.SDK.GameObject
 
         public unsafe void Draw(GL gl)
         {
-            if (Model is null) Model = new(gl, MeshCache);
+            Model ??= new(gl, MeshCache);
 
             Model.Bind(gl);
 

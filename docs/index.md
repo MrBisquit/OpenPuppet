@@ -2,10 +2,12 @@
 _layout: landing
 ---
 
-# This is the **HOMEPAGE**.
-
-Refer to [Markdown](http://daringfireball.net/projects/markdown/) for how to write markdown files.
-
-## Quick Start Notes:
-
-1. Add images to the *images* folder if the file is referencing an image.
+<div class="landing-hero">
+    <img src="images/banner.png" alt="OpenPuppet" />
+    <h1>2D Rigged Animation Software</h1>
+    <p>Modern 2D Rigged Animation Software with... yeah no that's about it</p>
+    <div class="landing-actions">
+        <a href="docs/getting-started.md" class="btn-primary-landing">Get started</a>
+        <a href="https://github.com/Project-Axion/OpenPuppet" class="btn-outline-landing">View on GitHub</a>
+    </div>
+</div>
