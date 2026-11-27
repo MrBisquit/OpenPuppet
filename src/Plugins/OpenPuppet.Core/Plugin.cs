@@ -22,8 +22,6 @@ namespace OpenPuppet.Core
 
         private bool shutdown = false;
 
-        internal Project projectManager = new();
-
         public void OnInitialized(IServiceCollection services)
         {
             SDK.Logger.InitLogger(PluginID);
@@ -98,7 +96,10 @@ namespace OpenPuppet.Core
             if (ProjectManager.ActiveProject == null)
                 IUIDialog.Open("openpuppet.core.welcome");
 
-            services.AddSingleton<IProjectManager>(projectManager);
+            Logger.LogInfo("Registering services");
+            services.AddSingleton<IProjectManager, Project>();
+            services.AddSingleton<IErrorReporter, ErrorReporter>();
+            Logger.LogDebug("Finished registering services");
         }
 
         public void OnShutdown()

@@ -212,6 +212,7 @@ namespace OpenPuppet.SDK
                 plugin.Plugin = (IPlugin)Activator.CreateInstance(t.AsType())!;
                 plugin.State = PluginState.Loaded;
                 plugin.Plugin.OnInitialized(SDK.Services);
+
                 /*asm.DefinedTypes.Where(t => typeof(IPlugin).IsAssignableFrom(t) && !t.IsAbstract && t.IsClass).ToList().ForEach(t =>
                 {
                     var p = (IPlugin)Activator.CreateInstance(t.AsType())!;

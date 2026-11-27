@@ -46,7 +46,9 @@ namespace OpenPuppet
 
         static void Main(string[] args)
         {
-            Logger.InitLogger("openpuppet.runner");
+            Logger.InitLogger("openpuppet.runner", true);
+
+            SDK.SDK.Init();
 
             if (args.Length > 0)
             {
@@ -105,6 +107,11 @@ namespace OpenPuppet
                     $"Exception occurred while running main window: {ex.Message} ({ex.GetType()})"
                 );
 
+                Logger.LogInfo(
+                    "An exception at this level is irrecoverable, the application will " +
+                    "automatically attempt to restart"
+                );
+
                 if (ex.GetType() == typeof(Silk.NET.GLFW.GlfwException))
                 {
                     // Temporary message
@@ -115,6 +122,25 @@ namespace OpenPuppet
                         "correct GPU."
                     );
                 }
+
+                foreach (var plugin in IPlugin.RegisteredPlugins)
+                {
+                    try
+                    {
+                        IPlugin.UnloadPlugin(plugin.Key);
+                    } catch
+                    {
+                        IPlugin.DisablePlugin(plugin.Key);
+                    }
+                }
+
+                string path = Environment.ProcessPath; //Assembly.GetEntryAssembly().Location;
+                Logger.LogDebug($"Starting {path}");
+                ProcessStartInfo start = new(path);
+                start.ArgumentList.Add("--recovered-from-crash");
+                Process.Start(start);
+
+                Environment.Exit(1);
             }
         }
 
