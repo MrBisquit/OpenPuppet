@@ -14,15 +14,14 @@ namespace OpenPuppet.SVG
     {
         public const string PluginID = "com.openpuppet.svg";
 
-        public Logger.PluginLogger Logger { get; internal set; } = SDK.Logger.LogManager.RequestPluginLogger(PluginID);
-
         private bool shutdown = false;
 
         public void OnInitialized(IServiceCollection services)
         {
+            Logger.InitLogger(PluginID);
             bool hasProject = SDK.Projects.ProjectManager.ActiveProject != null;
 
-            Logger.WriteLine(SDK.Logger.ILogger.Level.Log, "Hello SVG Plugin");
+            Logger.LogInfo("Hello SVG Plugin");
 
             IUIDialog.Register("openpuppet.svg.import", typeof(ImportSVG));
 
@@ -33,7 +32,6 @@ namespace OpenPuppet.SVG
         {
             if (shutdown) return;
             ContextMenu.Remove("File.Import.SVG");
-            Logger.Dispose();
             shutdown = true;
         }
 

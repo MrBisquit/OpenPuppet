@@ -65,8 +65,7 @@ namespace OpenPuppet.SDK
             if (t.IsAssignableTo(typeof(IUIDialog)) && t.IsClass)
             {
                 if (RegisteredWindows.ContainsKey(registry))
-                    SDK.logger.WriteLine(
-                        Logger.ILogger.Level.Warn,
+                    Logger.LogWarning(
                         $"A dialog with registry: '{registry}' already exists, overriding"
                     );
 

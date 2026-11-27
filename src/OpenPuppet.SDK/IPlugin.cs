@@ -66,7 +66,6 @@ namespace OpenPuppet.SDK
         }
 
         public const string PluginID = "";
-        public PluginLogger Logger { get; }
 
         public static void RegisterPlugin(PluginMetadata metadata, string path, IPlugin? plugin = null, bool enabled = false)
         {
@@ -150,8 +149,7 @@ namespace OpenPuppet.SDK
                     }
                     catch (Exception ex)
                     {
-                        SDK.logger.WriteLine(
-                            ILogger.Level.Error,
+                        LogTrace(
                             $"Plugin \"{id}\" threw an exception during OnShutdown: {ex}"
                         );
                     }
@@ -182,10 +180,7 @@ namespace OpenPuppet.SDK
 
                     if (leaked)
                     {
-                        SDK.logger.WriteLine(
-                            ILogger.Level.Warn,
-                            $"Could not unload Plugin \"{id}\", possible reference leak"
-                        );
+                        LogWarning($"Could not unload Plugin \"{id}\", possible reference leak");
 
                         if (soft)
                             IEvent<bool>.Invoke("openpuppet.restart", null, false);
@@ -197,10 +192,7 @@ namespace OpenPuppet.SDK
                 }
                 else
                 {
-                    SDK.logger.WriteLine(
-                        ILogger.Level.Log,
-                        $"Plugin with the ID of \"{id}\" cannot be unloaded, as it is not in an unloadable state"
-                    );
+                    LogInfo($"Plugin with the ID of \"{id}\" cannot be unloaded, as it is not in an unloadable state");
                 }
             }
         }
@@ -232,8 +224,7 @@ namespace OpenPuppet.SDK
             }
             catch (Exception ex)
             {
-                SDK.logger.WriteLine(
-                    ILogger.Level.Warn,
+                LogWarning(
                     $"Failed to load plugin with ID \"{id}\": {ex.Message}"
                 );
                 UnloadPlugin(id);
@@ -289,8 +280,7 @@ namespace OpenPuppet.SDK
                 }
                 catch (Exception ex)
                 {
-                    SDK.logger.WriteLine(
-                        ILogger.Level.Warn,
+                    LogWarning(
                         $"Could not fully uninstall plugin with the ID \"{id}\": {ex.Message}"
                     );
                 }
@@ -359,8 +349,7 @@ namespace OpenPuppet.SDK
                     var plugins = JsonConvert.DeserializeObject<Dictionary<string, PluginItem>>(File.ReadAllText(PluginListPath));
                     if (plugins == null)
                     {
-                        SDK.logger.WriteLine(
-                            ILogger.Level.Warn,
+                        LogWarning(
                             "Plugins list is null, rewriting with default values. " +
                             "The user will need to reinstall plugins."
                         );
@@ -369,8 +358,7 @@ namespace OpenPuppet.SDK
                     }
                     else
                     {
-                        SDK.logger.WriteLine(
-                            ILogger.Level.OK,
+                        LogInfo(
                             $"Found {plugins.Count} plugins"
                         );
 
@@ -380,12 +368,10 @@ namespace OpenPuppet.SDK
                 }
                 catch (Exception ex)
                 {
-                    SDK.logger.WriteLine(
-                        ILogger.Level.Error,
+                    LogTrace(
                         $"Failed to load plugins list: " + ex.Message
                     );
-                    SDK.logger.WriteLine(
-                        ILogger.Level.Warn,
+                    LogWarning(
                         "Rewriting plugin list with default values. " +
                         "The user will need to reinstall plugins."
                     );

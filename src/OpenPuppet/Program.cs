@@ -41,20 +41,19 @@ namespace OpenPuppet
 
         static ImGuiController cont = null;
 
-        public static readonly Logger.PluginLogger logger = Logger.LogManager.RequestPluginLogger("openpuppet");
-
         // Just so we can see how long it takes for it to start up
         internal static Stopwatch startupSW;
 
         static void Main(string[] args)
         {
+            Logger.InitLogger("openpuppet.runner");
+
             if (args.Length > 0)
             {
                 if (args[0] == "clean")
                 {
-                    logger.Dispose();
-                    if (Directory.Exists(Logger.LogPath))
-                        Directory.Delete(Logger.LogPath, true);
+                    if (Directory.Exists(Logger.AppLogDirPath))
+                        Directory.Delete(Logger.AppLogDirPath, true);
                     Environment.Exit(0);
                 }
             }
@@ -86,7 +85,7 @@ namespace OpenPuppet
                     if (soft) SoftRestart();
                     else
                     {
-                        logger.WriteLine($"Launching {Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe")}");
+                        Logger.LogDebug($"Launching {Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe")}");
                         window.Close();
                         Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
                         Environment.Exit(0);
@@ -102,16 +101,14 @@ namespace OpenPuppet
             }
             catch (Exception ex)
             {
-                logger.WriteLine(
-                    Logger.ILogger.Level.Error,
+                Logger.LogTrace(
                     $"Exception occurred while running main window: {ex.Message} ({ex.GetType()})"
                 );
 
                 if (ex.GetType() == typeof(Silk.NET.GLFW.GlfwException))
                 {
                     // Temporary message
-                    logger.WriteLine(
-                        Logger.ILogger.Level.Warn,
+                    Logger.LogWarning(
                         "The above exception may occur if you are using an extremely low-end " +
                         "GPU, or integrated graphics. If you have multiple GPUs, please modify " +
                         "the operating system settings to ensure that OpenPuppet uses the " +
@@ -138,7 +135,7 @@ namespace OpenPuppet
             LoadPlugins();
 
             startupSW.Stop();
-            logger.WriteLine(Logger.ILogger.Level.OK, $"Started up in {startupSW.Elapsed}");
+            Logger.LogDebug($"Started up in {startupSW.Elapsed}");
         }
         static void Update(double deltaSeconds)
         {
@@ -294,15 +291,11 @@ namespace OpenPuppet
                 }
                 catch (Exception ex)
                 {
-                    logger.WriteLine(
-                        Logger.ILogger.Level.Warn,
+                    Logger.LogWarning(
                         $"\"{plugin.Key}\" failed to shut down: {ex.Message}"
                     );
                 }
             }
-
-            SDK.SDK.DestroyLogger();
-            logger.Dispose();
         }
 
         static void LoadPlugins()
@@ -347,7 +340,7 @@ namespace OpenPuppet
 
         static void SoftRestart()
         {
-            logger.WriteLine("Starting soft restart");
+            Logger.LogDebug("Starting soft restart");
 
             ContextMenu.Root.Nodes.Clear();
             IUIWindow.CloseAll();
@@ -364,8 +357,7 @@ namespace OpenPuppet
                 }
                 catch (Exception ex)
                 {
-                    logger.WriteLine(
-                        Logger.ILogger.Level.Warn,
+                    Logger.LogTrace(
                         $"\"{plugin.Key}\" failed to shut down: {ex.Message}"
                     );
                 }
@@ -375,7 +367,7 @@ namespace OpenPuppet
 
             LoadPlugins();
 
-            logger.WriteLine("Finished soft restart");
+            Logger.LogDebug("Finished soft restart");
         }
     }
 }

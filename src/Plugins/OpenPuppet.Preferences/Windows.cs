@@ -46,7 +46,7 @@ namespace OpenPuppet.Preferences
         public static void OnFinishedLoading(object? sender, EventArgs args)
         {
             if (IsLoaded) return;
-            Global.MainPlugin.Logger.WriteLine(SDK.Logger.ILogger.Level.Log, "Attempting to load previous layout");
+            Logger.LogInfo("Attempting to load previous layout");
             OpenPreviousWindows();
             OpenLayout("default");
             IsLoaded = true;
@@ -65,7 +65,7 @@ namespace OpenPuppet.Preferences
                     string[]? data = JsonSerializer.Deserialize<string[]>(File.ReadAllText(WindowsFile));
                     if (data == null)
                     {
-                        Global.MainPlugin.Logger.WriteLine(Logger.ILogger.Level.Error, "Failed to load last opened windows");
+                        Logger.LogTrace("Failed to load last opened windows");
                         SavePreviousWindows();
                     }
                     else
@@ -78,7 +78,7 @@ namespace OpenPuppet.Preferences
                 }
                 catch (Exception ex)
                 {
-                    Global.MainPlugin.Logger.WriteLine(Logger.ILogger.Level.Error, "Failed to load last opened windows: " + ex.Message);
+                    Logger.LogTrace("Failed to load last opened windows: " + ex.Message);
                     SavePreviousWindows();
                 }
             }
@@ -114,7 +114,7 @@ namespace OpenPuppet.Preferences
             }
             catch (Exception ex)
             {
-                Global.MainPlugin.Logger.WriteLine(SDK.Logger.ILogger.Level.Error, "Failed to load ImGui layout: " + ex.Message);
+                Logger.LogTrace("Failed to load ImGui layout: " + ex.Message);
                 return false;
             }
         }

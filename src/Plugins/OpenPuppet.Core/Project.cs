@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace OpenPuppet.Core
 {
-    public class Project : IUIWindow
+    public class ProjectWindow : IUIWindow
     {
         public uint InstanceIndex { get; set; }
         public string Title { get; set; } = "Project";

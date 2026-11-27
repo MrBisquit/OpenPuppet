@@ -8,14 +8,13 @@ namespace OpenPuppet.Preferences
     {
         public const string PluginID = "com.openpuppet.preferences";
 
-        public Logger.PluginLogger Logger { get; internal set; } = SDK.Logger.LogManager.RequestPluginLogger(PluginID);
-
         private bool shutdown = false;
 
         public void OnInitialized(IServiceCollection services)
         {
+            Logger.InitLogger(PluginID);
             Global.MainPlugin = this;
-            Logger.WriteLine(SDK.Logger.ILogger.Level.Log, "Hello Preferences Plugin");
+            Logger.LogInfo("Hello Preferences Plugin");
 
             IUIDialog.Register("openpuppet.layouts.new_layout", typeof(NewLayout));
 
@@ -32,7 +31,7 @@ namespace OpenPuppet.Preferences
         public void OnShutdown()
         {
             if (shutdown) return;
-            Logger.WriteLine(SDK.Logger.ILogger.Level.Log, "Saving current window layout");
+            Logger.LogInfo("Saving current window layout");
             Windows.SavePreviousWindows();
             Windows.SaveLayout("default");
             ContextMenu.Remove("view.layouts");
@@ -40,7 +39,6 @@ namespace OpenPuppet.Preferences
             //ContextMenu.Remove("view.layouts.layouts");
             //ContextMenu.Remove("view.layouts.layouts.default");
             Windows.UnsubscribeToEvents();
-            Logger.Dispose();
             shutdown = true;
         }
 

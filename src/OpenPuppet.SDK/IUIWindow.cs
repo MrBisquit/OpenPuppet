@@ -105,7 +105,7 @@ namespace OpenPuppet.SDK
 
             string errstring = $"Could not retrieve Registry from {t.FullName}";
 
-            SDK.logger.WriteLine(Logger.ILogger.Level.Error, errstring);
+            Logger.LogTrace(errstring);
             throw new Exception(errstring);
         }
 

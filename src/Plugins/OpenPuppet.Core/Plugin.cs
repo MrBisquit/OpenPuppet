@@ -20,16 +20,16 @@ namespace OpenPuppet.Core
     {
         public const string PluginID = "com.openpuppet.core";
 
-        public Logger.PluginLogger Logger { get; internal set; } = SDK.Logger.LogManager.RequestPluginLogger(PluginID);
-
         private bool shutdown = false;
 
         internal Project projectManager = new();
 
         public void OnInitialized(IServiceCollection services)
         {
+            SDK.Logger.InitLogger(PluginID);
+
             Global.MainPlugin = this;
-            Logger.WriteLine(SDK.Logger.ILogger.Level.Log, "Hello Core");
+            Logger.LogInfo("Hello Core");
 
             SDK.SDK.JsonTypeBinder.AllowedAssemblies.Add(Assembly.GetExecutingAssembly());
 
@@ -55,7 +55,7 @@ namespace OpenPuppet.Core
             IUIWindow.Register("openpuppet.core.viewport", typeof(Viewport));
             IUIWindow.Register("openpuppet.core.properties", typeof(Properties));
             IUIWindow.Register("openpuppet.settings", typeof(SettingsWindow));
-            IUIWindow.Register("openpuppet.core.project", typeof(Project));
+            IUIWindow.Register("openpuppet.core.project", typeof(ProjectWindow));
             IUIWindow.Register("openpuppet.core.hierarchy", typeof(Hierarchy));
 
             IUIDialog.Register("openpuppet.core.createproject", typeof(CreateProject));
@@ -105,11 +105,9 @@ namespace OpenPuppet.Core
         {
             if (shutdown) return;
             Events.Unsubscribe();
-            Logger.Dispose();
             shutdown = true;
 
             // See if this maybe works?
-            Global.MainPlugin.Logger = null;
             Global.MainPlugin = null;
         }
 
