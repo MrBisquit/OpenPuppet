@@ -212,4 +212,92 @@ namespace OpenPuppet.Core
             );
         }
     }
+
+    public class Project : IProjectManager
+    {
+        public List<string> RecentProjects { get; } = [];
+
+        public void Create(string name, string path)
+        {
+            CreateAsync(name, path, null).Wait();
+        }
+
+        public void Create(string name, IProjectPath path)
+        {
+            CreateAsync(name, path, null).Wait();
+        }
+
+        public Task CreateAsync(string name, string path, CancellationToken? ct)
+        {
+            return CreateAsync(name, new ProjectPath(path), ct);
+        }
+
+        public Task CreateAsync(string name, IProjectPath path, CancellationToken? ct)
+        {
+            ct?.ThrowIfCancellationRequested();
+            throw new NotImplementedException();
+        }
+
+        public void OpenProject(ProjectMetadata meta)
+        {
+            OpenProjectAsync(meta, null).Wait();
+        }
+
+        public void OpenProject(string path)
+        {
+            OpenProjectAsync(path, null).Wait();
+        }
+
+        public void OpenProject(IProjectPath path)
+        {
+            OpenProjectAsync(path, null).Wait();
+        }
+
+        public Task OpenProjectAsync(ProjectMetadata meta, CancellationToken? ct)
+        {
+            return OpenProjectAsync(new ProjectPath(meta.Directory), ct);
+        }
+
+        public Task OpenProjectAsync(string path, CancellationToken? ct)
+        {
+            return OpenProjectAsync(new ProjectPath(path), ct);
+        }
+
+        public Task OpenProjectAsync(IProjectPath path, CancellationToken? ct)
+        {
+            ct?.ThrowIfCancellationRequested();
+            throw new NotImplementedException();
+        }
+
+        public void SaveProject(ProjectMetadata meta)
+        {
+            SaveProjectAsync(meta, null).Wait();
+        }
+
+        public void SaveProject(ProjectMetadata meta, string path)
+        {
+            SaveProjectAsync(meta, path, null).Wait();
+        }
+
+        public void SaveProject(ProjectMetadata meta, IProjectPath path)
+        {
+            SaveProjectAsync(meta, path, null).Wait();
+        }
+
+        public Task SaveProjectAsync(ProjectMetadata meta, CancellationToken? ct)
+        {
+            return SaveProjectAsync(meta, new ProjectPath(meta.Directory), ct);
+        }
+
+        public Task SaveProjectAsync(ProjectMetadata meta, string path, CancellationToken? ct)
+        {
+            return SaveProjectAsync(meta, new ProjectPath(path), ct);
+        }
+
+        public Task SaveProjectAsync(ProjectMetadata meta, IProjectPath path, CancellationToken? ct)
+        {
+            ct?.ThrowIfCancellationRequested();
+            throw new NotImplementedException();
+        }
+    }
 }

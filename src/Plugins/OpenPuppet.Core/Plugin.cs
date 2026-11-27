@@ -24,6 +24,8 @@ namespace OpenPuppet.Core
 
         private bool shutdown = false;
 
+        internal Project projectManager = new();
+
         public void OnInitialized(IServiceCollection services)
         {
             Global.MainPlugin = this;
@@ -95,6 +97,8 @@ namespace OpenPuppet.Core
 
             if (ProjectManager.ActiveProject == null)
                 IUIDialog.Open("openpuppet.core.welcome");
+
+            services.AddSingleton<IProjectManager>(projectManager);
         }
 
         public void OnShutdown()
