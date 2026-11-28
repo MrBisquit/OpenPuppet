@@ -17,6 +17,16 @@ namespace OpenPuppet.SDK
         internal static ObservableServiceCollection Services { get; } = [];
         internal static ServiceProvider Provider { get; private set; } = Services.BuildServiceProvider();
 
+        public static ServiceProvider GetProvider()
+        {
+            return Provider;
+        }
+
+        public static ObservableServiceCollection GetServices()
+        {
+            return Services;
+        }
+
         public static void Init()
         {
             Services.OnAdded += Services_OnAdded;

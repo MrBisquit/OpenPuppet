@@ -58,6 +58,7 @@ namespace OpenPuppet.Core
 
             IUIDialog.Register("openpuppet.core.createproject", typeof(CreateProject));
             IUIDialog.Register("openpuppet.core.welcome", typeof(WelcomeDialog));
+            IUIDialog.Register("openpuppet.core.error", typeof(ErrorDialog));
 
             IEasingMode.Register("openpuppet.core.linear", new LinearEasing());
 

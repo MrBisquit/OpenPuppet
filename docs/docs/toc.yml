@@ -6,6 +6,8 @@
   href: developer-guide.md
 - name: Systems
   items:
+    - name: Naming
+      href: systems/naming.md
     - name: Plugins
       items:
         - name: Overview

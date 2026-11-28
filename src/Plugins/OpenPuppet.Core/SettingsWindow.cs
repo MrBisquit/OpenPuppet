@@ -1,4 +1,5 @@
 ﻿using ImGuiNET;
+using Microsoft.Extensions.DependencyInjection;
 using OpenPuppet.SDK;
 using System;
 using System.Collections.Generic;
@@ -89,6 +90,9 @@ namespace OpenPuppet.Core
 
         public void OnPostRender(double deltaTime) { }
 
-        public void OnClose() { }
+        public void OnClose()
+        {
+            
+        }
     }
 }

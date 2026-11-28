@@ -9,17 +9,31 @@ namespace OpenPuppet.Core
     {
         public void ReportError(Exception exception, ErrorReporterAction[] actions)
         {
-            throw new NotImplementedException();
+            IUIDialog.Open("openpuppet.core.error");
+            var dialog = IUIDialog.ActiveDialog;
+            var error = dialog as Dialogs.ErrorDialog;
+            error?.RelayError(exception);
         }
 
         public void ReportError(Exception exception, Type type, ErrorReporterAction[] actions)
         {
-            throw new NotImplementedException();
+            IUIDialog.Open("openpuppet.core.error");
+            var dialog = IUIDialog.ActiveDialog;
+            var error = dialog as Dialogs.ErrorDialog;
+            error?.RelayError(exception);
         }
 
         public void ReportWarning(string warning, ErrorReporterAction[] actions)
         {
-            throw new NotImplementedException();
+            IUIDialog.Open("openpuppet.core.error");
+            var dialog = IUIDialog.ActiveDialog;
+            var error = dialog as Dialogs.ErrorDialog;
+            error?.RelayWarning(warning);
+        }
+
+        public void Dispose()
+        {
+
         }
     }
 }

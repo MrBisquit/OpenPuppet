@@ -10,7 +10,7 @@ namespace OpenPuppet.SDK
     /// This service provides the tools required for managing the creation, opening, saving
     /// of projects, and handling the recent projects list.
     /// </summary>
-    public interface IProjectManager
+    public interface IProjectManager : IDisposable
     {
         public List<string> RecentProjects { get; }
 

@@ -7,7 +7,7 @@ namespace OpenPuppet.SDK
     /// <summary>
     /// Error reporting service, this should be as an unavoidable dialog popup.
     /// </summary>
-    public interface IErrorReporter
+    public interface IErrorReporter : IDisposable
     {
         public void ReportError(Exception exception, ErrorReporterAction[] actions);
 

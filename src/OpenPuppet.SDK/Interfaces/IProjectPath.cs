@@ -8,7 +8,7 @@ namespace OpenPuppet.SDK
     /// The IProjectPath is an interface for extendability reasons,
     /// it provides very basic utilities.
     /// </summary>
-    public interface IProjectPath
+    public interface IProjectPath : IDisposable
     {
         /// <summary>
         /// Get the base directory of the project

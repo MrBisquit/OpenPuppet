@@ -229,6 +229,9 @@ namespace OpenPuppet.SDK
                     $"Failed to load plugin with ID \"{id}\": {ex.Message}"
                 );
                 UnloadPlugin(id);
+
+                ServiceProvider provider = SDK.GetServices().BuildServiceProvider();
+                provider.GetRequiredService<IErrorReporter>().ReportError(ex, []);
             }
         }
 

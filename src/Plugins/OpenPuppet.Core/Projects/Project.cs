@@ -299,5 +299,7 @@ namespace OpenPuppet.Core
             ct?.ThrowIfCancellationRequested();
             throw new NotImplementedException();
         }
+
+        public void Dispose() { }
     }
 }

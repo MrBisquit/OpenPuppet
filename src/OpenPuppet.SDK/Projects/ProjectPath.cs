@@ -48,5 +48,7 @@ namespace OpenPuppet.SDK.Projects
         public string GetDirectory() => ProjectBase;
 
         public string GetProjctFilePath() => ProjectFile;
+
+        public void Dispose() { }
     }
 }
